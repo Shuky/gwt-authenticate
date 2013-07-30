@@ -20,13 +20,16 @@
  */
 package fr.mncc.gwttoolbox.authenticate.client.googleplus;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.HeadElement;
 import com.google.gwt.dom.client.ScriptElement;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import fr.mncc.gwttoolbox.authenticate.client.googleplus.dto.GooglePlusToken;
 import fr.mncc.gwttoolbox.authenticate.client.googleplus.dto.GooglePlusUserEmail;
 import fr.mncc.gwttoolbox.authenticate.client.googleplus.dto.GooglePlusUserInfo;
+import fr.mncc.gwttoolbox.base.client.json.Jsonp;
 
 public final class GooglePlusUtils {
 
@@ -73,8 +76,8 @@ public final class GooglePlusUtils {
     });
   }
 
-  public static void logout() {
-
+  public static void logout(GooglePlusToken token, AsyncCallback<JavaScriptObject> callback) {
+    Jsonp.get("https://accounts.google.com/o/oauth2/revoke?token=" + token.accessToken(), callback);
   }
 
   private static native void getUserInfoNative(AsyncCallback<GooglePlusUserInfo> callback) /*-{
