@@ -82,7 +82,7 @@ public final class GooglePlusUtils {
 
   private static native void getUserInfoNative(AsyncCallback<GooglePlusUserInfo> callback) /*-{
       var callbackWrapper = function(obj) {
-          callback.@fr.mncc.gwttoolbox.authenticate.client.googleplus.dto.GooglePlusUserInfo::onSuccess(*)(obj);
+          callback.@com.google.gwt.user.client.rpc.AsyncCallback::onSuccess(*)(obj);
       };
       $wnd.gapi.client.load('plus', 'v1', function() {
           var request = $wnd.gapi.client.plus.people.get({'userId': 'me'});
@@ -92,7 +92,7 @@ public final class GooglePlusUtils {
 
   private static native void getUserEmailNative(AsyncCallback<GooglePlusUserEmail> callback) /*-{
       var callbackWrapper = function(obj) {
-          callback.@fr.mncc.gwttoolbox.authenticate.client.googleplus.dto.GooglePlusUserEmail::onSuccess(*)(obj);
+          callback.@com.google.gwt.user.client.rpc.AsyncCallback::onSuccess(*)(obj);
       };
       $wnd.gapi.client.load('oauth2', 'v2', function() {
           var request = $wnd.gapi.client.oauth2.userinfo.get();
