@@ -130,12 +130,7 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
     if (session == null)
       return UserRoles.PUBLIC;
 
-    int userRole = UserRoles.PUBLIC;
-    try {
-      userRole = Integer.parseInt((String) session.getAttribute(Tokens.ROLE), 10);
-    } catch (NumberFormatException e) {
-
-    }
+    final int userRole = (Integer) session.getAttribute(Tokens.ROLE);
     return UserRoles.isValid(userRole) ? userRole : UserRoles.PUBLIC;
   }
 
