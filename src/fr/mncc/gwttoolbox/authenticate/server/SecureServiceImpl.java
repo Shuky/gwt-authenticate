@@ -68,6 +68,12 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
 
     session.setAttribute(Tokens.USERNAME, username == null ? "" : username.trim());
     session.setAttribute(Tokens.ROLE, UserRoles.isValid(role) ? role : UserRoles.PUBLIC);
+
+    getCurrentCall()
+        .setCookie(Tokens.USERNAME, getCurrentUserName(request), 4 * 60 * 60 /* seconds */);
+    getCurrentCall()
+        .setCookie(Tokens.ROLE, "" + getCurrentUserRole(request), 4 * 60 * 60 /* seconds */);
+
     return true;
   }
 
