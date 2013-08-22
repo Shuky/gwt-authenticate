@@ -102,7 +102,7 @@ public final class SecurityManager {
     }
     final int accessLevel = routesAccessLevels_.get(route);
     final int userRole = getCurrentUserRole();
-    return (accessLevel | userRole) != 0;
+    return (accessLevel & userRole) != 0;
   }
 
   private int getCurrentUserRole() {

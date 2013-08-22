@@ -44,7 +44,7 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
     if (call.isComplete()) {
       return;
     }
-    if ((getAccessLevel() | getUserRole(call)) == 0) {
+    if ((getAccessLevel() & getUserRole(call)) == 0) {
       call.onInternalFailure(new Exception("Security Exception"));
     }
   }
