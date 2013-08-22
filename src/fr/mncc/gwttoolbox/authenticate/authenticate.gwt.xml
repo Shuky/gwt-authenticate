@@ -3,7 +3,6 @@
 <module>
     <inherits name='com.google.gwt.user.User'/>
     <inherits name='com.google.gwtjsonrpc.GWTJSONRPC'/>
-    <inherits name='fr.mncc.gwttoolbox.base.base'/>
 
     <!-- Specify the paths for translatable code -->
     <source path='client'/>
