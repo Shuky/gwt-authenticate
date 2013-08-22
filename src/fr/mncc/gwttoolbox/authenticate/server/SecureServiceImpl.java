@@ -113,7 +113,8 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
     if (session == null)
       return "";
 
-    return (String) session.getAttribute(Tokens.USERNAME);
+    final String username = (String) session.getAttribute(Tokens.USERNAME);
+    return username == null ? "" : username;
   }
 
   /**
