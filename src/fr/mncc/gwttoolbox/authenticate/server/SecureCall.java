@@ -22,12 +22,29 @@ package fr.mncc.gwttoolbox.authenticate.server;
 
 import com.google.gwtjsonrpc.server.ActiveCall;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SecureCall extends ActiveCall {
 
-  public SecureCall(final HttpServletRequest req, final HttpServletResponse resp) {
+  public SecureCall(HttpServletRequest req, HttpServletResponse resp) {
     super(req, resp);
+  }
+
+  @Override
+  public void setCookie(String name, String value, int age) {
+    Cookie cookie = new Cookie(name, value);
+    cookie.setMaxAge(age);
+    cookie.setPath("/");
+    httpResponse.addCookie(cookie);
+  }
+
+  @Override
+  public void removeCookie(String name) {
+    Cookie cookie = new Cookie(name, "");
+    cookie.setMaxAge(0);
+    cookie.setPath("/");
+    httpResponse.addCookie(cookie);
   }
 }

@@ -52,13 +52,13 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
   /**
    * Save user's properties in the current session. Must be called after a successful login.
    * 
-   * @param request
    * @param username
    * @param role
    * @return true on success, false otherwise.
    */
-  protected final boolean saveCurrentUser(HttpServletRequest request, String username, int role) {
+  protected final boolean saveCurrentUser(String username, int role) {
 
+    final HttpServletRequest request = getCurrentCall().getHttpServletRequest();
     if (request == null)
       return false;
 
@@ -80,11 +80,11 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
   /**
    * Invalidate session. Must be called after a successful logout.
    * 
-   * @param request
    * @return true on success, false otherwise.
    */
-  protected final boolean removeCurrentUser(HttpServletRequest request) {
+  protected final boolean removeCurrentUser() {
 
+    final HttpServletRequest request = getCurrentCall().getHttpServletRequest();
     if (request == null)
       return false;
 
@@ -95,6 +95,10 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
     session.removeAttribute(Tokens.USERNAME);
     session.removeAttribute(Tokens.ROLE);
     session.invalidate();
+
+    getCurrentCall().removeCookie(Tokens.USERNAME);
+    getCurrentCall().removeCookie(Tokens.ROLE);
+
     return true;
   }
 
