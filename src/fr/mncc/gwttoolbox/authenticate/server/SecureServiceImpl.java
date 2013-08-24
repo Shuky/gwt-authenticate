@@ -32,7 +32,7 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
 
   @Override
   protected final SecureCall createActiveCall(HttpServletRequest req, HttpServletResponse resp) {
-    SecureCall call = new SecureCall(req, resp);
+    final SecureCall call = new SecureCall(req, resp);
     call.setCookie(Tokens.USERNAME, getCurrentUserName(req), 4 * 60 * 60 /* seconds */);
     call.setCookie(Tokens.ROLE, "" + getCurrentUserRole(req), 4 * 60 * 60 /* seconds */);
     return call;
@@ -44,7 +44,7 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
     if (call.isComplete()) {
       return;
     }
-    if ((getAccessLevel() & getUserRole(call)) == 0) {
+    if ((getAccessLevel() & getCurrentUserRole(call)) == 0) {
       call.onInternalFailure(new Exception("Security Exception"));
     }
   }
@@ -151,12 +151,12 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
    * @param call
    * @return valid user role
    */
-  private int getUserRole(SecureCall call) {
-    int userRole = UserRoles.PUBLIC;
+  private int getCurrentUserRole(SecureCall call) {
+    int userRole;
     try {
       userRole = Integer.parseInt(call.getCookie(Tokens.ROLE), 10);
     } catch (NumberFormatException e) {
-
+      userRole = UserRoles.PUBLIC;
     }
     return UserRoles.isValid(userRole) ? userRole : UserRoles.PUBLIC;
   }
