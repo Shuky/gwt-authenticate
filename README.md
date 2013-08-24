@@ -141,7 +141,7 @@ First, add [gwt-router](https://github.com/MNCC/gwt-router) to your project depe
 **SecureRoute.java** file :
 
 ```java
-      public abstract class SecureRoute extends Route {
+    public abstract class SecureRoute extends Route {
 
         private final SecurityController securityController_;
 
@@ -164,7 +164,7 @@ First, add [gwt-router](https://github.com/MNCC/gwt-router) to your project depe
         protected abstract void onRedirectionAllowed(String arguments);
 
         protected abstract void onRedirectionNotAllowed(String arguments);
-      }
+    }
 ```
 
 Then, for each route, implement **onRedirectionAllowed()** and **onRedirectionNotAllowed()**.
