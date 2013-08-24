@@ -25,14 +25,14 @@ Example : securing JSON-RPC Web services
 
 ```java
     public interface LoginService extends SecureService {
-      void login(String username, String password, AsyncCallback<Boolean> callback);
-      void logout(AsyncCallback<Boolean> callback);
+      void login(String username, String password, SecureAsyncCallback<Boolean> callback);
+      void logout(SecureAsyncCallback<Boolean> callback);
     }
 ```
 
 ```java
     public interface HelloWorldService extends SecureService {
-      void getHelloWorld(AsyncCallback<String> callback);
+      void getHelloWorld(SecureAsyncCallback<String> callback);
     }
 ```
 
@@ -46,7 +46,7 @@ Example : securing JSON-RPC Web services
     public class LoginServiceImpl extends PublicServiceImpl implements LoginService {
 
       @Override
-      public void login(String username, String password, AsyncCallback<Boolean> callback) {
+      public void login(String username, String password, SecureAsyncCallback<Boolean> callback) {
         if (username == null || username.isEmpty() || !username.equals("user")) {
           callback.onFailure(new Exception("Invalid username."));
           return;
@@ -60,7 +60,7 @@ Example : securing JSON-RPC Web services
       }
 
       @Override
-      public void logout(AsyncCallback<Boolean> callback) {
+      public void logout(SecureAsyncCallback<Boolean> callback) {
         removeCurrentUser();    // Disconnect user
         callback.onSuccess(true);
       }
@@ -75,7 +75,7 @@ Example : securing JSON-RPC Web services
     public class HelloWorldServiceImpl extends PrivateServiceImpl implements HelloWorldService {
 
       @Override
-      public void getHelloWorld(AsyncCallback<String> callback) {
+      public void getHelloWorld(SecureAsyncCallback<String> callback) {
         callback.onSuccess("Hello World!");
       }
     }
@@ -120,28 +120,28 @@ Example : securing JSON-RPC Web services
     // Call your Web services as usual
     helloWorldService_.login("user", "test", new SecureAsyncCallback<Boolean>() {
 
-            @Override
-            public void onFailure(Throwable caught) {
-                // TODO : process error
+        @Override
+        public void onFailure(Throwable caught) {
+            // TODO : process error
+        }
+
+        @Override
+        public void onSuccess(Boolean isOk) {
+            if (isOk) {
+                helloWorldService_.getHelloWorld(new SecureAsyncCallback<String>() {
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        // TODO : process error
+                    }
+
+                    @Override
+                    public void onSuccess(String html) {
+                        // TODO : display html string
+                    }
+                });
             }
-
-            @Override
-            public void onSuccess(Boolean isOk) {
-                if (isOk) {
-                    helloWorldService_.getHelloWorld(new SecureAsyncCallback<String>() {
-
-                        @Override
-                        public void onFailure(Throwable caught) {
-                            // TODO : process error
-                        }
-
-                        @Override
-                        public void onSuccess(String html) {
-                            // TODO : display html string
-                        }
-                    });
-                }
-            }
+        }
     });
 ```
 
