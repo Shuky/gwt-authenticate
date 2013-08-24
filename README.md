@@ -14,7 +14,6 @@ How to get started ?
 Add the following lines to your *.gwt.xml file :
 
 ```xml
-	<inherits name='com.google.gwtjsonrpc.GWTJSONRPC'/>
 	<inherits name='fr.mncc.gwttoolbox.authenticate.authenticate'/>
 ```
 
