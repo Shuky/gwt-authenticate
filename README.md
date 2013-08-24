@@ -155,10 +155,8 @@ Example : securing AJAX routes
     @Override
     public void onValueChange(ValueChangeEvent<String> event) {
 
-        String token = event.getValue();
-
-        // Check access level before routing the user.
-        if (securityManager_.isRedirectionAllowed(token)) {
+        // Check user role against route access level
+        if (securityManager_.isRedirectionAllowed(event.getValue())) {
             // TODO : redirect the user
         }
         else {
