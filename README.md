@@ -167,4 +167,4 @@ First, add [gwt-router](https://github.com/MNCC/gwt-router) to your project depe
       }
 ```
 
-Then, for each route, implement onRedirectionAllowed() and onRedirectionNotAllowed().
+Then, for each route, implement **onRedirectionAllowed()** and **onRedirectionNotAllowed()**.
