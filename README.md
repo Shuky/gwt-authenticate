@@ -105,7 +105,7 @@ Example : securing JSON-RPC Web services
     </servlet-mapping>
 ```
 
-* Call Web services from the client.
+* Call Web services from the client as usual.
 
 ```java
     HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
@@ -120,7 +120,6 @@ Example : securing JSON-RPC Web services
         securityManager_.registerService(loginService_, "loginService");
         ...
 
-        // Call your Web services as usual
         helloWorldService_.login("user", "test", new SecureAsyncCallback<Boolean>() {
 
             @Override
