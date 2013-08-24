@@ -108,9 +108,9 @@ Example : securing JSON-RPC Web services
 * Call Web services from the client as usual.
 
 ```java
-    HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
-    LoginService loginService_ = GWT.create(LoginService.class);
-    SecurityManager securityManager_ = new SecurityManager();
+    final HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
+    final LoginService loginService_ = GWT.create(LoginService.class);
+    final SecurityManager securityManager_ = new SecurityManager();
 
     @Override
     public void onModuleLoad() {
