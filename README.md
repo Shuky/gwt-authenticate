@@ -133,3 +133,38 @@ Example : securing AJAX routes
         }
     }
 ```
+
+Example : using gwt-authenticate in conjunction with gwt-router
+===============================================================
+
+First, add [gwt-router](https://github.com/MNCC/gwt-router) to your project dependencies. Then, create a new
+**SecureRoute.java** file :
+
+```java
+      public abstract class SecureRoute extends Route {
+
+        private final SecurityController securityController_;
+
+        public SecureRoute(String name, SecurityController securityController, int accessLevel) {
+            super(name);
+            securityController_ = securityController;
+            securityController_.registerRoute(name, accessLevel);
+        }
+
+        @Override
+        public final void enter(String arguments) {
+            if (securityController_.isRedirectionAllowed(getName())) {
+                onRedirectionAllowed(arguments);
+            }
+            else {
+                onRedirectionNotAllowed(arguments);
+            }
+        }
+
+        protected abstract void onRedirectionAllowed(String arguments);
+
+        protected abstract void onRedirectionNotAllowed(String arguments);
+      }
+```
+
+Then, for each route, implement onRedirectionAllowed() and onRedirectionNotAllowed().
