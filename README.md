@@ -86,7 +86,7 @@ Example : securing JSON-RPC Web services
 ```xml
     <servlet>
         <servlet-name>loginService</servlet-name>
-        <servlet-class>module_name.server.LoginServiceImpl</servlet-class>
+        <servlet-class>package_name.server.LoginServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loginService</servlet-name>
@@ -97,7 +97,7 @@ Example : securing JSON-RPC Web services
 ```xml
     <servlet>
         <servlet-name>helloWorldService</servlet-name>
-        <servlet-class>module_name.server.HelloWorldServiceImpl</servlet-class>
+        <servlet-class>package_name.server.HelloWorldServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>helloWorldService</servlet-name>
