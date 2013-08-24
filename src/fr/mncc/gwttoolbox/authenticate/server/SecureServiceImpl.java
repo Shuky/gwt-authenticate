@@ -128,7 +128,7 @@ public abstract class SecureServiceImpl extends JsonServlet<SecureCall> {
   }
 
   /**
-   * Get currently logged-in user role.
+   * Get currently logged-in user role from HttpSession object.
    * 
    * @return user role. Must be > 0.
    */
