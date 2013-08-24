@@ -21,27 +21,25 @@ Add the following line to your *.gwt.xml file :
 Example : securing JSON-RPC Web services
 ========================================
 
-* Create Web services interfaces.
+* Create Web service interface :
 
 ```java
+    /**
+     * Web services interfaces must extend SecureService.
+     */
     public interface LoginService extends SecureService {
       void login(String username, String password, SecureAsyncCallback<Boolean> callback);
       void logout(SecureAsyncCallback<Boolean> callback);
     }
 ```
 
-```java
-    public interface HelloWorldService extends SecureService {
-      void getHelloWorld(SecureAsyncCallback<String> callback);
-    }
-```
-
-* Implement Web services.
+* Implement Web service :
 
 ```java
     /**
-     * Public Web service (e.g. anybody will be able to access it).
-     * Must extend PublicServiceImpl.
+     * Public Web services (e.g. anybody is allowed to access them) must extend PublicServiceImpl.
+     * Private Web services (e.g. only logged-in users are allowed to access them) must extend PrivateServiceImpl.
+     * Admin Web services (e.g. only the admin is allowed to access them) must extend AdminServiceImpl.
      */
     public class LoginServiceImpl extends PublicServiceImpl implements LoginService {
 
@@ -67,21 +65,7 @@ Example : securing JSON-RPC Web services
     }
 ```
 
-```java
-    /**
-     * Private Web service (e.g. only logged-in users will be able to access it).
-     * Must extend PrivateServiceImpl.
-     */
-    public class HelloWorldServiceImpl extends PrivateServiceImpl implements HelloWorldService {
-
-      @Override
-      public void getHelloWorld(SecureAsyncCallback<String> callback) {
-        callback.onSuccess("Hello World!");
-      }
-    }
-```
-
-* Add Web services to you WEB.xml file.
+* Add Web service to your WEB.xml file :
 
 ```xml
     <servlet>
@@ -94,33 +78,20 @@ Example : securing JSON-RPC Web services
     </servlet-mapping>
 ```
 
-```xml
-    <servlet>
-        <servlet-name>helloWorldService</servlet-name>
-        <servlet-class>package_name.server.HelloWorldServiceImpl</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>helloWorldService</servlet-name>
-        <url-pattern>/module_name/helloWorldService</url-pattern>
-    </servlet-mapping>
-```
-
-* Call Web services from the client as usual.
+* Call Web service from the client as usual :
 
 ```java
-    final HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
     final LoginService loginService_ = GWT.create(LoginService.class);
-    final SecurityManager securityManager_ = new SecurityManager();
+    final SecurityController securityController_ = new SecurityController();
 
     @Override
     public void onModuleLoad() {
 
         ...
-        securityManager_.registerService(helloWorldService_, "helloWorldService");
-        securityManager_.registerService(loginService_, "loginService");
+        securityController_.registerService(loginService_, "loginService");
         ...
 
-        helloWorldService_.login("user", "test", new SecureAsyncCallback<Boolean>() {
+        loginService_.login("user", "test", new SecureAsyncCallback<Boolean>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -139,7 +110,7 @@ Example : securing AJAX routes
 ==============================
 
 ```java
-    final SecurityManager securityManager_ = new SecurityManager();
+    final SecurityController securityController_ = new SecurityController();
 
     @Override
     public void onModuleLoad() {

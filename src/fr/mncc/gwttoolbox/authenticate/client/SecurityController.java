@@ -30,12 +30,12 @@ import fr.mncc.gwttoolbox.authenticate.shared.UserRoles;
 
 import java.util.HashMap;
 
-public final class SecurityManager {
+public final class SecurityController {
 
   private static final HashMap<String, Integer> routesAccessLevels_ =
       new HashMap<String, Integer>();
 
-  public SecurityManager() {
+  public SecurityController() {
 
   }
 
