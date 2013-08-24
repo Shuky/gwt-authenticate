@@ -18,7 +18,7 @@
  * 
  * @author http://www.mncc.fr
  */
-package fr.mncc.gwttoolbox.authenticate.client;
+package fr.mncc.gwttoolbox.authenticate.shared;
 
 import com.google.gwtjsonrpc.common.AsyncCallback;
 
