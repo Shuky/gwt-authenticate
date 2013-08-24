@@ -18,8 +18,8 @@ Add the following line to your *.gwt.xml file :
 	<inherits name='fr.mncc.gwttoolbox.authenticate.authenticate'/>
 ```
 
-Example : securing JSON-RPC webservices
-=======================================
+Example : securing JSON-RPC Web services
+========================================
 
 1. Create Web services interfaces.
 
@@ -40,24 +40,22 @@ Example : securing JSON-RPC webservices
 
 ```java
     /**
-     * Public Web service (e.g. anybody will be able to access it). Must extend PublicServiceImpl.
+     * Public Web service (e.g. anybody will be able to access it).
+     * Must extend PublicServiceImpl.
      */
     public class LoginServiceImpl extends PublicServiceImpl implements LoginService {
 
       @Override
       public void login(String username, String password, AsyncCallback<Boolean> callback) {
-
         if (username == null || username.isEmpty() || !username.equals("user")) {
           callback.onFailure(new Exception("Invalid username."));
           return;
         }
-
         if (password == null || password.isEmpty() || !password.equals("test")) {
           callback.onFailure(new Exception("Invalid password."));
           return;
         }
-
-        saveCurrentUser(username, UserRoles.USER);  // Save user role
+        saveCurrentUser(username, UserRoles.USER);  // Identify user as logged-in
         callback.onSuccess(true);
       }
 
@@ -71,20 +69,43 @@ Example : securing JSON-RPC webservices
 
 ```java
     /**
-     * Private Web service (e.g. only logged-in users will be able to access it). Must extend PrivateServiceImpl.
+     * Private Web service (e.g. only logged-in users will be able to access it).
+     * Must extend PrivateServiceImpl.
      */
     public class HelloWorldServiceImpl extends PrivateServiceImpl implements HelloWorldService {
 
       @Override
       public void getHelloWorld(AsyncCallback<String> callback) {
-        callback.onSuccess("Test set for <a href=\"http://purecss.io/\">http://purecss.io/</a>.");
+        callback.onSuccess("Hello World!");
       }
     }
 ```
 
-3. Call them from the client.
+3. Add Web services to you WEB.xml file.
+
+```xml
+    <servlet>
+        <servlet-name>loginService</servlet-name>
+        <servlet-class>module_name.server.LoginServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginService</servlet-name>
+        <url-pattern>/module_name/loginService</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>helloWorldService</servlet-name>
+        <servlet-class>module_name.server.HelloWorldServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>helloWorldService</servlet-name>
+        <url-pattern>/module_name/helloWorldService</url-pattern>
+    </servlet-mapping>
+```
+
+4. Call Web services from the client.
 
 ```java
+    // Setup Web services
     final HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
     final LoginService loginService_ = GWT.create(LoginService.class);
 
