@@ -115,10 +115,10 @@ Example : securing AJAX routes
     @Override
     public void onModuleLoad() {
         ...
-        securityManager_.registerRoute("login", AccessLevels.PUBLIC);
-        securityManager_.registerRoute("home", AccessLevels.PUBLIC);
-        securityManager_.registerRoute("myspace", AccessLevels.PRIVATE);
-        securityManager_.registerRoute("dashboard", AccessLevels.ADMIN);
+        securityController_.registerRoute("login", AccessLevels.PUBLIC);
+        securityController_.registerRoute("home", AccessLevels.PUBLIC);
+        securityController_.registerRoute("myspace", AccessLevels.PRIVATE);
+        securityController_.registerRoute("dashboard", AccessLevels.ADMIN);
         ...
     }
 
