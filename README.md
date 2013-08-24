@@ -21,7 +21,7 @@ Add the following line to your *.gwt.xml file :
 Example : securing JSON-RPC Web services
 ========================================
 
-1. Create Web services interfaces.
+* Create Web services interfaces.
 
 ```java
     public interface LoginService extends SecureService {
@@ -36,7 +36,7 @@ Example : securing JSON-RPC Web services
     }
 ```
 
-2. Implement Web services.
+* Implement Web services.
 
 ```java
     /**
@@ -81,7 +81,7 @@ Example : securing JSON-RPC Web services
     }
 ```
 
-3. Add Web services to you WEB.xml file.
+* Add Web services to you WEB.xml file.
 
 ```xml
     <servlet>
@@ -92,6 +92,9 @@ Example : securing JSON-RPC Web services
         <servlet-name>loginService</servlet-name>
         <url-pattern>/module_name/loginService</url-pattern>
     </servlet-mapping>
+```
+
+```xml
     <servlet>
         <servlet-name>helloWorldService</servlet-name>
         <servlet-class>module_name.server.HelloWorldServiceImpl</servlet-class>
@@ -102,7 +105,7 @@ Example : securing JSON-RPC Web services
     </servlet-mapping>
 ```
 
-4. Call Web services from the client.
+* Call Web services from the client.
 
 ```java
     // Setup Web services
