@@ -108,45 +108,61 @@ Example : securing JSON-RPC Web services
 * Call Web services from the client.
 
 ```java
-    // Setup Web services
-    final HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
-    final LoginService loginService_ = GWT.create(LoginService.class);
+    HelloWorldService helloWorldService_ = GWT.create(HelloWorldService.class);
+    LoginService loginService_ = GWT.create(LoginService.class);
+    SecurityManager securityManager_ = new SecurityManager();
 
-    // Setup security manager
-    final SecurityManager securityManager = new SecurityManager();
-    securityManager.registerService(helloWorldService_, "helloWorldService");
-    securityManager.registerService(loginService_, "loginService");
+    @Override
+    public void onModuleLoad() {
 
-    // Call your Web services as usual
-    helloWorldService_.login("user", "test", new SecureAsyncCallback<Boolean>() {
+        ...
+        securityManager_.registerService(helloWorldService_, "helloWorldService");
+        securityManager_.registerService(loginService_, "loginService");
+        ...
 
-        @Override
-        public void onFailure(Throwable caught) {
-            // TODO : process error
-        }
+        // Call your Web services as usual
+        helloWorldService_.login("user", "test", new SecureAsyncCallback<Boolean>() {
 
-        @Override
-        public void onSuccess(Boolean isOk) {
-            if (isOk) {
-                helloWorldService_.getHelloWorld(new SecureAsyncCallback<String>() {
-
-                    @Override
-                    public void onFailure(Throwable caught) {
-                        // TODO : process error
-                    }
-
-                    @Override
-                    public void onSuccess(String html) {
-                        // TODO : display html string
-                    }
-                });
+            @Override
+            public void onFailure(Throwable caught) {
+                // TODO : process error
             }
-        }
-    });
+
+            @Override
+            public void onSuccess(Boolean isOk) {
+                // TODO : execute action on login success
+            }
+        });
+    }
 ```
 
 Example : securing AJAX routes
 ==============================
 
+```java
+    final SecurityManager securityManager_ = new SecurityManager();
 
+    @Override
+    public void onModuleLoad() {
+        ...
+        securityManager_.registerRoute("login", AccessLevels.PUBLIC);
+        securityManager_.registerRoute("home", AccessLevels.PUBLIC);
+        securityManager_.registerRoute("myspace", AccessLevels.PRIVATE);
+        securityManager_.registerRoute("dashboard", AccessLevels.ADMIN);
+        ...
+    }
 
+    @Override
+    public void onValueChange(ValueChangeEvent<String> event) {
+
+        String token = event.getValue();
+
+        // Check access level before routing the user.
+        if (securityManager_.isRedirectionAllowed(token)) {
+            // TODO : redirect the user
+        }
+        else {
+            // TODO : display an error message
+        }
+    }
+```
