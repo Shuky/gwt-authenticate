@@ -1,14 +1,13 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.iml
 *.ipr
 *.iws
+.*
 
 # gwt caches and compiled units #
-war/gwt_bree/
 gwt-unitCache/
 out/
 
@@ -16,6 +15,8 @@ out/
 .apt_generated/
 
 # more caches and things from deploy #
-war/WEB-INF/deploy/
-war/WEB-INF/classes/
+war/
+
+# Gradle output directory
+build/
 
