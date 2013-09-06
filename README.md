@@ -8,6 +8,17 @@ Dependencies
 
 * [gwt-jsonrpc](https://github.com/MNCC/gwt-jsonrpc)
 
+How to build the library ?
+==========================
+
+* Download [Gradle 1.7](http://www.gradle.org/)
+
+* Execute Gradle :
+
+```Batchfile
+gradle
+```
+
 How to get started ?
 ====================
 
