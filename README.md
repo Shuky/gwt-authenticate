@@ -11,13 +11,9 @@ Dependencies
 How to build the library ?
 ==========================
 
-* Download [Gradle 1.7](http://www.gradle.org/)
-
-* Execute Gradle :
-
-```Batchfile
-gradle
-```
+* Download & install [Gradle 1.7](http://www.gradle.org/)
+* Execute the following command-line : gradle
+* The generated jar will be in the [bin/](https://github.com/MNCC/gwt-authenticate/tree/master/bin) directory
 
 How to get started ?
 ====================
