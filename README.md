@@ -12,7 +12,8 @@ How to build the library ?
 ==========================
 
 * Download & install [Gradle 1.7](http://www.gradle.org/) or above
-* Execute the following command-line : gradle
+* Go to your gwt-authenticate directory
+* Type "gradle" in your command-line
 * The generated jar will be written in the [bin/](https://github.com/MNCC/gwt-authenticate/tree/master/bin) directory
 
 How to get started ?
