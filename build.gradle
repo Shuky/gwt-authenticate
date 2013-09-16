@@ -64,7 +64,7 @@ task rebuildAll (dependsOn: ['classes']) {
 
 task packageAll (type: Jar, dependsOn: ['executeTests', 'cleanAll', 'rebuildAll']) {
     baseName = 'gwt-authenticate'
-    version = '1.0.0'
+    version = '1.0.1'
     destinationDir = new File('bin')
     from sourceSets.main.output.classesDir
 }
